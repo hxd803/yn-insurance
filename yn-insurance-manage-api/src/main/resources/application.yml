@@ -1,0 +1,14 @@
+server:
+  port: 6001
+
+spring:
+  application:
+    name: com.yi.nuo.manage.api
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 500MB
