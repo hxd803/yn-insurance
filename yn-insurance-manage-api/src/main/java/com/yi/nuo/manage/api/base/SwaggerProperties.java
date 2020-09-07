@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @Component
-@ConfigurationProperties("swagger")
+@ConfigurationProperties("springdoc.description")
 public class SwaggerProperties implements Serializable {
 
     /**

@@ -16,6 +16,11 @@ spring:
 
 #spring doc 配置
 springdoc:
+  description:
+    application-name: 懿诺后台管理系统
+    application-version: 1.0
+    application-description: 懿诺后台管理系统openapi整合
+    try-host: http://localhost:${server.port}
   swagger-ui:
     path: /springdoc/docs.html
     displayRequestDuration: true
@@ -28,8 +33,3 @@ springdoc:
     resolve-schema-properties: true
   writer-with-default-pretty-printer: true
 
-swagger:
-  application-name: 懿诺后台管理系统
-  application-version: 1.0
-  application-description: 懿诺后台管理系统openapi整合
-  try-host: http://localhost:${server.port}
