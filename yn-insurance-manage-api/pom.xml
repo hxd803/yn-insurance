@@ -4,19 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>yn-insurance</artifactId>
-        <groupId>com.yi.nuo.</groupId>
+        <groupId>com.yi.nuo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>yn-insurance-manage-api</artifactId>
 
+    <packaging>jar</packaging>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.yi.nuo.</groupId>
+            <groupId>com.yi.nuo</groupId>
             <artifactId>yn-insurance-common</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.yi.nuo</groupId>
+            <artifactId>yn-insurance-system-service</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 

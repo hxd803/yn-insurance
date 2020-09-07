@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author 黄雪冬
  * @version 0.0.1
- * @date 2020/9/7 10:45
+ * @since 2020/9/7 10:45
  */
 @Configuration
 public class SpringDocOpenApiConfiguration implements WebMvcConfigurer {
