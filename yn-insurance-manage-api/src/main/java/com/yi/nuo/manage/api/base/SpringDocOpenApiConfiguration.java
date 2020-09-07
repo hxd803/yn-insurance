@@ -1,18 +1,9 @@
 package com.yi.nuo.manage.api.base;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.headers.Header;
 import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.media.StringSchema;
-import io.swagger.v3.oas.models.parameters.HeaderParameter;
-import io.swagger.v3.oas.models.parameters.Parameter;
-import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.apache.commons.lang3.reflect.FieldUtils;
-import org.springframework.boot.SpringBootVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
@@ -22,9 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author 黄雪冬
@@ -41,36 +30,16 @@ public class SpringDocOpenApiConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public OpenAPI springDocOpenAPI() {
-        //配置认证、请求头参数
-        Components components = new Components();
-        Map<String, Object> myHeader2extensions = new HashMap<>(2);
-        myHeader2extensions.put("name", "myHeader2");
-        components
-                .addSecuritySchemes("bearer-key", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT"))
-                .addSecuritySchemes("basicScheme", new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic"))
-                .addParameters("myHeader1", new Parameter().in("header").schema(new StringSchema()).name("myHeader1"))
-                //注：这种方式有问题，不推荐
-                .addHeaders("myHeader2", new Header().description("myHeader2 header").schema(new StringSchema()).extensions(myHeader2extensions))
-                .addParameters("myGlobalHeader", new HeaderParameter().required(true).name("My-Global-Header").description("My Global Header").schema(new StringSchema()).required(false))
-        ;
-
+    public OpenAPI springDocOpenApi() {
         // 接口调试路径
         Server tryServer = new Server();
         tryServer.setUrl(swaggerProperties.getTryHost());
 
         return new OpenAPI()
-                .components(components)
                 .servers(Collections.singletonList(tryServer))
                 .info(new Info()
                         .title(swaggerProperties.getApplicationName() + " Api Doc")
                         .description(swaggerProperties.getApplicationDescription())
-                        .version("Application Version: " + swaggerProperties.getApplicationVersion() + "\n Spring Boot Version: " + SpringBootVersion.getVersion())
-                        .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0.html"))
-                )
-                .externalDocs(new ExternalDocumentation()
-                        .description("SpringDoc Full Documentation")
-                        .url("https://springdoc.org/")
                 );
     }
 
