@@ -1,4 +1,4 @@
-package com.yi.nuo.manage.api.function.vo;
+package com.yi.nuo.manage.api.function.login.vo;
 
 import com.yi.nuo.system.bo.UserBo;
 import lombok.Data;

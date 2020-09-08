@@ -1,17 +1,16 @@
 package com.yi.nuo.system.service;
 
-import com.yi.nuo.system.entity.User;
+import com.yi.nuo.system.entity.RoleMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 用户 服务类
+ * 角色菜单 服务类
  * </p>
  *
  * @author 黄雪冬
  * @since 2020-09-08
  */
-public interface IUserService extends IService<User> {
+public interface IRoleMenuService extends IService<RoleMenu> {
 
-    User getByUserName(String userName);
 }

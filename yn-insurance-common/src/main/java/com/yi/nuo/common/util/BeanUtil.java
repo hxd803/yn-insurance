@@ -89,8 +89,8 @@ public class BeanUtil {
         /**
          * 其它无法通过copyProperties获取的属性通过继承实现这个方法手工处理
          *
-         * @param srcObj
+         * @param o
          */
-        void convertOthers(Object srcObj);
+        void convertOthers(Object o);
     }
 }

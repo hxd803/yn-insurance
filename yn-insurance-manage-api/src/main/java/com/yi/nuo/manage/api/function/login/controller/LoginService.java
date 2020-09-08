@@ -1,12 +1,11 @@
-package com.yi.nuo.manage.api.function.controller;
+package com.yi.nuo.manage.api.function.login.controller;
 
-import com.yi.nuo.manage.api.function.vo.LoginResultVo;
+import com.yi.nuo.manage.api.function.login.vo.LoginResultVo;
 import com.yi.nuo.system.bo.UserBo;
 import com.yi.nuo.system.domain.IUserDomain;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
@@ -15,14 +14,12 @@ import javax.annotation.Resource;
  * @version 0.0.1
  * @since 2020/9/7 21:12
  */
-@Component
 public class LoginService implements UserDetailsService {
 
     @Resource
     private IUserDomain userDomain;
 
     @Override
-
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserBo userBo = userDomain.getByUserName(s);
         if (userBo == null) {

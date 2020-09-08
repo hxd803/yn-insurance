@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户
+ * 菜单
  * </p>
  *
  * @author 黄雪冬
@@ -20,76 +20,43 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("user")
-public class User implements Serializable {
+@TableName("menu")
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键ID
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 手机号码
+     * 上级ID
      */
-    private String mobile;
+    private Integer parentId;
 
     /**
-     * 姓名
+     * 编码
      */
-    private String username;
+    private String code;
 
     /**
-     * 密码
+     * 名称
      */
-    private String password;
+    private String name;
 
     /**
-     * 身份证号
-     */
-    private String idCard;
-
-    /**
-     * 职位
-     */
-    private String position;
-
-    /**
-     * 部门
-     */
-    private String department;
-
-    /**
-     * 所属组织
-     */
-    private Integer organizationId;
-
-    /**
-     * 所属组织名称
-     */
-    private String organizationName;
-
-    /**
-     * 状态（0停用,1启用,2删除）
-     */
-    private Integer state;
-
-    /**
-     * 账号类型（0：超级管理员，1：管理员，2：普通账号）
+     * 菜单类型（0：菜单，1：按钮，2：数据）
      */
     private Integer type;
 
     /**
-     * 盐加密
+     * 权限url
      */
-    private String salt;
+    private String permissionUrl;
 
     /**
-     * 备注
+     * 是否删除
      */
-    private String remark;
+    private Boolean isDelete;
 
     /**
      * 创建时间
@@ -97,7 +64,7 @@ public class User implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 更新时间
+     * 修改时间
      */
     private LocalDateTime updateTime;
 

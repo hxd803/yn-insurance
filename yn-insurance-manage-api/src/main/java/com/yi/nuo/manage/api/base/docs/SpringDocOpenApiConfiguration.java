@@ -1,4 +1,4 @@
-package com.yi.nuo.manage.api.base;
+package com.yi.nuo.manage.api.base.docs;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

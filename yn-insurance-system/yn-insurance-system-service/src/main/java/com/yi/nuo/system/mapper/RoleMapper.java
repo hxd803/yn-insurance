@@ -1,16 +1,16 @@
 package com.yi.nuo.system.mapper;
 
-import com.yi.nuo.system.entity.User;
+import com.yi.nuo.system.entity.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- * 用户 Mapper 接口
+ * 角色 Mapper 接口
  * </p>
  *
  * @author 黄雪冬
  * @since 2020-09-08
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface RoleMapper extends BaseMapper<Role> {
 
 }

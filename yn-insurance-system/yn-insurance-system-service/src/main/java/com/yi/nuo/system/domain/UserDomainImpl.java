@@ -19,6 +19,9 @@ import javax.annotation.Resource;
 public class UserDomainImpl implements IUserDomain {
 
     @Resource
+    private IMenuDomain menuDomain;
+
+    @Resource
     private IUserService userService;
 
     @Override
@@ -38,6 +41,8 @@ public class UserDomainImpl implements IUserDomain {
 
     @Override
     public UserBo getByUserName(String userName) {
-        return BeanUtil.convert(userService.getByUserName(userName), UserBo.class);
+        UserBo userBo = BeanUtil.convert(userService.getByUserName(userName), UserBo.class);
+        userBo.setMenuBoList(menuDomain.findByUserId(userBo.getId()));
+        return userBo;
     }
 }

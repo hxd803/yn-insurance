@@ -11,8 +11,6 @@
 
     <artifactId>yn-insurance-manage-api</artifactId>
 
-    <packaging>jar</packaging>
-
     <dependencies>
 
         <dependency>
