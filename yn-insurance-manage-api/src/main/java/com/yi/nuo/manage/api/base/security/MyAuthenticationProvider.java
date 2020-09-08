@@ -44,7 +44,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
 
         if (!userBo.getPassword().equals(Md5Util.hash(details.getPassword() + userBo.getSalt()))) {
             log.info("password error");
-            throw new BadCredentialsException("authenticate fail！");
+            throw new BadCredentialsException("密码错误");
         }
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -54,7 +54,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
                 grantedAuthorities.add(grantedAuthority);
             }
         }
-        return new UsernamePasswordAuthenticationToken(details.getUsername(), details.getPassword(), grantedAuthorities);
+        return new UsernamePasswordAuthenticationToken(userBo, details.getPassword(), grantedAuthorities);
 
     }
 

@@ -1,12 +1,17 @@
 package com.yi.nuo.manage.api.base.security;
 
+import com.yi.nuo.manage.api.base.security.handler.*;
+import com.yi.nuo.manage.api.base.security.session.GlobalSessionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.annotation.Resource;
@@ -33,12 +38,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyAuthenticationProvider myAuthenticationProvider;
 
 
+    @Resource
+    private MyUrlAccessDecisionManager myUrlAccessDecisionManager;
+
+    @Resource
+    private MyUrlFilterInvocationSecurityMetadataSource myUrlFilterInvocationSecurityMetadataSource;
+
+    @Resource
+    private GlobalSessionRegistry globalSessionRegistry;
+
     /**
      * 开放访问的请求
      */
     private static final String[] PERMIT_ALL_MAPPING = {
-            "/api/auth/**",
-            "/springdoc/**"
+            "/api/auth/**"
     };
 
     @Override
@@ -51,7 +64,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //匹配规则，在匹配规则路径下的内容可以不用登录
         http.authorizeRequests()
                 .antMatchers(PERMIT_ALL_MAPPING)
-                .permitAll();
+                .permitAll()
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setSecurityMetadataSource(myUrlFilterInvocationSecurityMetadataSource);
+                        o.setAccessDecisionManager(myUrlAccessDecisionManager);
+                        return o;
+                    }
+                });
 
         //自定义未登录返回内容，自定义权限不足返回内容
         http.exceptionHandling()
@@ -71,8 +92,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/api/auth/logout")
                 .logoutSuccessHandler(new MyLogoutSuccessHandler());
 
+        //自定义session registry，自行管理session，maximumSessions设置为-1，不限制session个数，如果设置为1，可以作为单点登录使用
+        http.sessionManagement()
+                .maximumSessions(-1)
+                .sessionRegistry(globalSessionRegistry);
 
         //关闭CSRF保护，允许跨域访问
         http.csrf().disable();
     }
+
+    /**
+     * 直接忽略spring doc内容，不需要走spring security的过滤链
+     *
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/springdoc/**");
+    }
+
 }

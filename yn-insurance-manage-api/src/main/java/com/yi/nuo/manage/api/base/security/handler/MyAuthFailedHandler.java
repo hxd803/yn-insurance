@@ -1,4 +1,4 @@
-package com.yi.nuo.manage.api.base.security;
+package com.yi.nuo.manage.api.base.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yi.nuo.common.result.BaseApiResult;

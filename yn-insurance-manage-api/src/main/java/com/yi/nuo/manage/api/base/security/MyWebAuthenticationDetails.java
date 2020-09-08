@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 前段用户提交的字段内容
+ * 前端用户提交的字段内容
  *
  * @author 黄雪冬
  * @version 0.0.1

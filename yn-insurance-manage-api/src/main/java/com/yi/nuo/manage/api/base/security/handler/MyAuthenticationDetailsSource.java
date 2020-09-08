@@ -1,5 +1,6 @@
-package com.yi.nuo.manage.api.base.security;
+package com.yi.nuo.manage.api.base.security.handler;
 
+import com.yi.nuo.manage.api.base.security.MyWebAuthenticationDetails;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
