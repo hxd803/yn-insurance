@@ -1,7 +1,6 @@
 package com.yi.nuo.manage.api.base.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,11 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
+    @Resource
     private AuthenticationDetailsSource<HttpServletRequest, WebAuthenticationDetails> authenticationDetailsSource;
 
     @Resource
     private MyAuthenticationProvider myAuthenticationProvider;
+
 
     /**
      * 开放访问的请求
@@ -48,13 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         //匹配规则，在匹配规则路径下的内容可以不用登录
         http.authorizeRequests()
                 .antMatchers(PERMIT_ALL_MAPPING)
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+                .permitAll();
 
         //自定义未登录返回内容，自定义权限不足返回内容
         http.exceptionHandling()
@@ -74,7 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/api/auth/logout")
                 .logoutSuccessHandler(new MyLogoutSuccessHandler());
 
+
+        //关闭CSRF保护，允许跨域访问
+        http.csrf().disable();
     }
-
-
 }
