@@ -1,5 +1,6 @@
 package com.yi.nuo.tenant.api.base.security;
 
+import com.yi.nuo.tenant.api.base.constant.SessionConstant;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,6 +45,6 @@ public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
         username = request.getParameter("username");
         password = request.getParameter("password");
         validCode = request.getParameter("validateCode");
-        sessionCodeValue = (String) request.getSession().getAttribute("SESSION_KEY_IMAGE_CODE");
+        sessionCodeValue = (String) request.getSession().getAttribute(SessionConstant.CAPTURE_SESSION_KEY);
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,9 +56,12 @@ public class AuthController {
         String verCode = specCaptcha.text().toLowerCase();
         HttpSession session = request.getSession();
         session.setAttribute(SessionConstant.CAPTURE_SESSION_KEY, verCode);
-
         response.setContentType("image/png");
-        specCaptcha.out(response.getOutputStream());
+        
+        ServletOutputStream outputStream = response.getOutputStream();
+        specCaptcha.out(outputStream);
+        outputStream.flush();
+        outputStream.close();
     }
 
 }
