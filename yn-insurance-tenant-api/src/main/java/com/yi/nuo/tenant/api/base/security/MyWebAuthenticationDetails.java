@@ -44,5 +44,6 @@ public class MyWebAuthenticationDetails extends WebAuthenticationDetails {
         username = request.getParameter("username");
         password = request.getParameter("password");
         validCode = request.getParameter("validateCode");
+        sessionCodeValue = (String) request.getSession().getAttribute("SESSION_KEY_IMAGE_CODE");
     }
 }

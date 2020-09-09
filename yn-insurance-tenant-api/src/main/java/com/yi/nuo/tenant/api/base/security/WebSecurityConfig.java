@@ -76,8 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //自定义未登录返回内容，自定义权限不足返回内容
         http.exceptionHandling()
-                .authenticationEntryPoint(new MyAuthenticationEntryPoint())
-                .accessDeniedHandler(new MyAccessDeniedHandler());
+                .authenticationEntryPoint(new MyAuthenticationEntryPoint());
 
         //登录内容配置
         http.formLogin()

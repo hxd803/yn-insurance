@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 匿名用户无权访问
+ * 匿名用户无权访问统一处理类
  *
  * @author 黄雪冬
  * @version 0.0.1

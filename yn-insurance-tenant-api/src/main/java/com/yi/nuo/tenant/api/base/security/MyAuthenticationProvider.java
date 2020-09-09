@@ -4,6 +4,7 @@ import com.yi.nuo.common.util.Md5Util;
 import com.yi.nuo.system.bo.MenuBo;
 import com.yi.nuo.system.bo.UserBo;
 import com.yi.nuo.system.domain.IUserDomain;
+import com.yi.nuo.tenant.api.base.security.exception.ValidCodeErrorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -37,6 +38,13 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         log.info("now start custom authenticate process!");
         MyWebAuthenticationDetails details = (MyWebAuthenticationDetails) authentication.getDetails();
 
+        if (StringUtils.isEmpty(details.getValidCode())) {
+            throw new ValidCodeErrorException("验证码不能为空");
+        }
+        if (!details.getValidCode().equalsIgnoreCase(details.getSessionCodeValue())) {
+            throw new ValidCodeErrorException("验证码错误");
+        }
+
         UserBo userBo = userDomain.getByUserName(details.getUsername());
         if (userBo == null) {
             throw new UsernameNotFoundException("用户不存在");
@@ -46,6 +54,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
             log.info("password error");
             throw new BadCredentialsException("密码错误");
         }
+
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (MenuBo menuBo : userBo.getMenuBoList()) {

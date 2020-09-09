@@ -1,7 +1,9 @@
 package com.yi.nuo.tenant.api.function.auth.controller;
 
+import com.wf.captcha.SpecCaptcha;
 import com.yi.nuo.common.result.BaseApiResult;
 import com.yi.nuo.system.domain.IUserDomain;
+import com.yi.nuo.tenant.api.base.constant.SessionConstant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * @author 黄雪冬
@@ -22,6 +28,7 @@ import javax.annotation.Resource;
 @Tag(name = "AuthController", description = "测试")
 public class AuthController {
 
+
     @Resource
     private IUserDomain userDomain;
 
@@ -29,7 +36,8 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "登录")
     public BaseApiResult<Boolean> login(@Parameter(description = "姓名", required = true) @RequestParam String username,
-                                        @Parameter(description = "密码", required = true) @RequestParam String password) {
+                                        @Parameter(description = "密码", required = true) @RequestParam String password,
+                                        @Parameter(description = "验证码", required = true) @RequestParam String validateCode) {
 
         return new BaseApiResult<Boolean>().success(true);
     }
@@ -41,8 +49,15 @@ public class AuthController {
     }
 
     @PostMapping("/captcha/img")
-    public BaseApiResult<Boolean> captchaImg() {
-        return new BaseApiResult<Boolean>().success(true);
+    @Operation(summary = "获取验证码")
+    public void captchaImg(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 4);
+        String verCode = specCaptcha.text().toLowerCase();
+        HttpSession session = request.getSession();
+        session.setAttribute(SessionConstant.CAPTURE_SESSION_KEY, verCode);
+
+        response.setContentType("image/png");
+        specCaptcha.out(response.getOutputStream());
     }
 
 }
