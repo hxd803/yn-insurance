@@ -26,7 +26,7 @@ public class AuthController {
     private IUserDomain userDomain;
 
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @Operation(summary = "登录")
     public BaseApiResult<Boolean> login(@Parameter(description = "姓名", required = true) @RequestParam String username,
                                         @Parameter(description = "密码", required = true) @RequestParam String password) {
@@ -34,9 +34,15 @@ public class AuthController {
         return new BaseApiResult<Boolean>().success(true);
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     @Operation(summary = "登出")
     public BaseApiResult<Boolean> login() {
         return new BaseApiResult<Boolean>().success(true);
     }
+
+    @PostMapping("/captcha/img")
+    public BaseApiResult<Boolean> captchaImg() {
+        return new BaseApiResult<Boolean>().success(true);
+    }
+
 }

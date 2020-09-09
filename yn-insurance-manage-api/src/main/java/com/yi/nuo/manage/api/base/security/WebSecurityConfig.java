@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 开放访问的请求
      */
-    private static final String[] PERMIT_ALL_MAPPING = {
+    public static final String[] PERMIT_ALL_MAPPING = {
             "/api/auth/**"
     };
 
