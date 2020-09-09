@@ -16,7 +16,7 @@ import java.util.Collection;
  * @since 2020/9/8 18:59
  */
 @Component
-public class MyUrlFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+public class MyFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
 

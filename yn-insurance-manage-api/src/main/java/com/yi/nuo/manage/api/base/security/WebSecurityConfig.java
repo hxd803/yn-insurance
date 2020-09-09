@@ -39,10 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Resource
-    private MyUrlAccessDecisionManager myUrlAccessDecisionManager;
+    private MyAccessDecisionManager myAccessDecisionManager;
 
     @Resource
-    private MyUrlFilterInvocationSecurityMetadataSource myUrlFilterInvocationSecurityMetadataSource;
+    private MyFilterInvocationSecurityMetadataSource myFilterInvocationSecurityMetadataSource;
 
     @Resource
     private GlobalSessionRegistry globalSessionRegistry;
@@ -68,8 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
-                        o.setSecurityMetadataSource(myUrlFilterInvocationSecurityMetadataSource);
-                        o.setAccessDecisionManager(myUrlAccessDecisionManager);
+                        o.setSecurityMetadataSource(myFilterInvocationSecurityMetadataSource);
+                        o.setAccessDecisionManager(myAccessDecisionManager);
                         return o;
                     }
                 });
