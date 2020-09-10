@@ -8,6 +8,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -22,13 +23,13 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 
 
     @Override
-    public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+    public Collection<ConfigAttribute> getAttributes(Object o) {
         // 获取当前请求url
         String requestUrl = ((FilterInvocation) o).getRequestUrl();
 
         for (String s : WebSecurityConfig.PERMIT_ALL_MAPPING) {
             if (antPathMatcher.match(s, requestUrl)) {
-                return null;
+                return new ArrayList<>();
             }
         }
 
@@ -39,7 +40,7 @@ public class MyFilterInvocationSecurityMetadataSource implements FilterInvocatio
 
     @Override
     public Collection<ConfigAttribute> getAllConfigAttributes() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

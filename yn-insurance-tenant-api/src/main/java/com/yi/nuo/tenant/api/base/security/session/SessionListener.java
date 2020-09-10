@@ -19,16 +19,20 @@ public class SessionListener implements HttpSessionAttributeListener {
     @Resource
     private GlobalSessionContext globalSessionContext;
 
+    @Override
     public void attributeAdded(HttpSessionBindingEvent se) {
         log.debug("添加session");
         globalSessionContext.add(se.getSession());
     }
 
+    @Override
     public void attributeRemoved(HttpSessionBindingEvent se) {
         log.debug("删除session");
         globalSessionContext.delete(se.getSession());
     }
 
+    @Override
     public void attributeReplaced(HttpSessionBindingEvent se) {
+        log.debug("session属性变更");
     }
 }

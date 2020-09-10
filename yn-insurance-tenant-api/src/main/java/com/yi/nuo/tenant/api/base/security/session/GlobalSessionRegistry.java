@@ -5,6 +5,7 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class GlobalSessionRegistry extends SessionRegistryImpl {
                 }
             }
         }
-        return null;
+        return new ArrayList<>();
     }
 
 }

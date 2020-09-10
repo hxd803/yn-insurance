@@ -20,7 +20,7 @@ public class LoginService implements UserDetailsService {
     private IUserDomain userDomain;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String s) {
         UserBo userBo = userDomain.getByUserName(s);
         if (userBo == null) {
             throw new UsernameNotFoundException("用户不存在");

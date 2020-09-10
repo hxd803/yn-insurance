@@ -13,4 +13,7 @@ public class SessionConstant {
      * 验证码session key
      */
     public static final String CAPTURE_SESSION_KEY = "SESSION_KEY_CAPTURE_CODE";
+
+    private SessionConstant() {
+    }
 }

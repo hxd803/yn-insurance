@@ -12,14 +12,10 @@ import java.io.Serializable;
 @Data
 public class BaseApiResult<T extends Serializable> implements Serializable {
 
-    private static final String SUCCESS_MESSAGE = "操作成功";
-
     public static final Integer SUCCESS_CODE = 200;
-
     public static final Integer ERROR_CODE = 500;
-
-    public static final Integer UNAUTHORIZED = 401;
-
+    public static final Integer UNAUTHORIZED_CODE = 401;
+    private static final String SUCCESS_MESSAGE = "操作成功";
     private Integer code;
     private String msg;
     private T data;
@@ -52,6 +48,6 @@ public class BaseApiResult<T extends Serializable> implements Serializable {
 
 
     public BaseApiResult<T> unauthorized(String msg) {
-        return new BaseApiResult<>(UNAUTHORIZED, msg, null);
+        return new BaseApiResult<>(UNAUTHORIZED_CODE, msg, null);
     }
 }

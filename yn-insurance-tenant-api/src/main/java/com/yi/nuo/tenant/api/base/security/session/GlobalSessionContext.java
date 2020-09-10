@@ -63,7 +63,7 @@ public class GlobalSessionContext {
                     if (CollectionUtils.isEmpty(httpSessions)) {
                         sessionMap.remove(user.getId());
                     }
-                    System.out.println("删除session成功 " + sessionMap.size() + " ");
+                    log.debug("删除session成功 " + sessionMap.size() + " ");
                 }
             }
         }

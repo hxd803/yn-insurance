@@ -3,7 +3,6 @@ package com.yi.nuo.tenant.api.base.security.handler;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,7 @@ import java.util.Collection;
 @Component
 public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
-    public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) throws AccessDeniedException, InsufficientAuthenticationException {
+    public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) {
 
         for (ConfigAttribute ca : collection) {
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

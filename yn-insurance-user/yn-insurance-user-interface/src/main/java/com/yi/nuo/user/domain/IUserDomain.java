@@ -1,7 +1,6 @@
 package com.yi.nuo.user.domain;
 
 
-import com.yi.nuo.user.bo.LoginResultBo;
 import com.yi.nuo.user.bo.UserBo;
 
 /**
@@ -11,15 +10,6 @@ import com.yi.nuo.user.bo.UserBo;
  */
 public interface IUserDomain {
 
-
-    /**
-     * 登录
-     *
-     * @param userName
-     * @param password
-     * @return
-     */
-    LoginResultBo login(String userName, String password);
 
     /**
      * 根据用户名获取
