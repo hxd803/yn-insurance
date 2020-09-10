@@ -18,4 +18,11 @@ public interface IMenuDomain {
      * @return
      */
     List<MenuBo> findByUserId(Integer userId);
+
+    /**
+     * 获取所有配置过权限的菜单
+     *
+     * @return
+     */
+    List<MenuBo> findAll();
 }

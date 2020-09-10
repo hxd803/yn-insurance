@@ -3,6 +3,7 @@ package com.yi.nuo.tenant.api.base;
 import com.yi.nuo.common.exception.BusinessException;
 import com.yi.nuo.common.result.BaseApiResult;
 import com.yi.nuo.common.util.IpUtil;
+import com.yi.nuo.tenant.api.base.security.MyUserAuthBo;
 import com.yi.nuo.user.bo.UserBo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,11 +72,17 @@ public class BaseController {
     }
 
     protected Integer getCurrentUserId() {
-        return getCurrentUserBo().getId();
+        UserBo currentUserBo = getCurrentUserBo();
+        return currentUserBo == null ? null : currentUserBo.getId();
     }
 
     protected UserBo getCurrentUserBo() {
-        return (UserBo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MyUserAuthBo myUserAuthBo = (MyUserAuthBo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (myUserAuthBo != null) {
+            return myUserAuthBo.getUserBo();
+        } else {
+            return null;
+        }
     }
 
 }

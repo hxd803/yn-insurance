@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 黄雪冬
@@ -93,8 +92,4 @@ public class UserBo implements Serializable {
      */
     private LocalDateTime updateTime;
 
-    /**
-     * 所有的有权限的菜单
-     */
-    private List<MenuBo> menuBoList;
 }

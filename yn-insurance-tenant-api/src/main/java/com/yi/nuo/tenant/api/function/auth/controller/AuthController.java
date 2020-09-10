@@ -7,10 +7,7 @@ import com.yi.nuo.user.domain.IUserDomain;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
@@ -26,7 +23,7 @@ import java.io.IOException;
  */
 @RestController
 @RequestMapping("/api/auth")
-@Tag(name = "AuthController", description = "测试")
+@Tag(name = "AuthController", description = "登录鉴权")
 public class AuthController {
 
 
@@ -49,7 +46,7 @@ public class AuthController {
         return new BaseApiResult<Boolean>().success(true);
     }
 
-    @PostMapping("/captcha/img")
+    @GetMapping("/captcha/img")
     @Operation(summary = "获取验证码")
     public void captchaImg(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 4);

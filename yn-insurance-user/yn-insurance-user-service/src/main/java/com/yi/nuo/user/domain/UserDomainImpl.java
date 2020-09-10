@@ -24,9 +24,7 @@ public class UserDomainImpl implements IUserDomain {
     @Override
     public UserBo getByUserName(String userName) {
         UserBo userBo = BeanUtil.convert(userService.getByUserName(userName), UserBo.class);
-        if (userBo != null) {
-            userBo.setMenuBoList(menuDomain.findByUserId(userBo.getId()));
-        }
+
         return userBo;
     }
 }

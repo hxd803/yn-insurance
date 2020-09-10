@@ -2,9 +2,9 @@ package com.yi.nuo.tenant.api.function.test.controller;
 
 import com.alibaba.druid.util.StringUtils;
 import com.yi.nuo.common.result.BaseApiResult;
+import com.yi.nuo.tenant.api.base.security.MyUserAuthBo;
 import com.yi.nuo.tenant.api.base.security.session.GlobalSessionContext;
 import com.yi.nuo.user.bo.MenuBo;
-import com.yi.nuo.user.bo.UserBo;
 import com.yi.nuo.user.domain.IMenuDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -111,8 +111,9 @@ public class TestController {
 
                 SecurityContext securityContext = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
                 Authentication authentication = securityContext.getAuthentication();
-                UserBo principal = (UserBo) authentication.getPrincipal();
-                principal.setMenuBoList(byUserId);
+                MyUserAuthBo principal = (MyUserAuthBo) authentication.getPrincipal();
+                principal.setUserMenuList(byUserId)
+                        .setAllMenuList(menuDomain.findAll());
 
                 // 重新new一个token，因为Authentication中的权限是不可变的.
                 UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(

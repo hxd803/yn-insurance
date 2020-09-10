@@ -1,5 +1,6 @@
 package com.yi.nuo.tenant.api.base.security.session;
 
+import com.yi.nuo.tenant.api.base.security.MyUserAuthBo;
 import com.yi.nuo.user.bo.UserBo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.session.SessionInformation;
@@ -24,7 +25,9 @@ public class GlobalSessionContext {
     private final HashMap<Integer, List<HttpSession>> sessionMap = new HashMap<>();
 
 
-    // 会话注册器
+    /**
+     * 会话注册器
+     */
     @Resource
     private GlobalSessionRegistry globalSessionRegistry;
 
@@ -32,15 +35,15 @@ public class GlobalSessionContext {
         if (session != null) {
             SessionInformation sessionInformation = globalSessionRegistry.getSessionInformation(session.getId());
             if (sessionInformation != null) {
-                UserBo user = (UserBo) sessionInformation.getPrincipal();
-                if (user != null) {
-                    List<HttpSession> httpSessions = sessionMap.get(user.getId());
+                MyUserAuthBo myUserAuthBo = (MyUserAuthBo) sessionInformation.getPrincipal();
+                if (myUserAuthBo != null) {
+                    List<HttpSession> httpSessions = sessionMap.get(myUserAuthBo.getUserBo().getId());
                     if (!CollectionUtils.isEmpty(httpSessions)) {
                         httpSessions.add(session);
                     } else {
                         httpSessions = new ArrayList<>();
                         httpSessions.add(session);
-                        sessionMap.put(user.getId(), httpSessions);
+                        sessionMap.put(myUserAuthBo.getUserBo().getId(), httpSessions);
                     }
 
                     log.info("添加session成功 " + sessionMap.size() + " ");

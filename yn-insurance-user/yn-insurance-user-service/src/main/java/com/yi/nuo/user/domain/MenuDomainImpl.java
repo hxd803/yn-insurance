@@ -23,4 +23,9 @@ public class MenuDomainImpl implements IMenuDomain {
     public List<MenuBo> findByUserId(Integer userId) {
         return BeanUtil.convertList(menuService.findByUserId(userId), MenuBo.class);
     }
+
+    @Override
+    public List<MenuBo> findAll() {
+        return BeanUtil.convertList(menuService.list(), MenuBo.class);
+    }
 }

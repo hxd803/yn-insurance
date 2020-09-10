@@ -1,5 +1,6 @@
 package com.yi.nuo.tenant.api.base.security.handler;
 
+import com.yi.nuo.tenant.api.base.security.MyUserAuthBo;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -19,11 +20,20 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object o, Collection<ConfigAttribute> collection) {
 
-        for (ConfigAttribute ca : collection) {
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            for (GrantedAuthority authority : authorities) {
-                // 只要包含其中一个角色即可访问
-                if (authority.getAuthority().equals(ca.getAttribute())) {
+        if (authentication.getPrincipal() instanceof MyUserAuthBo) {
+            //获取到当前用户的注册信息
+            MyUserAuthBo myUserAuthBo = (MyUserAuthBo) authentication.getPrincipal();
+            for (ConfigAttribute ca : collection) {
+                //如果有配置了菜单，那么对权限做验证，如果没有配置，直接放行
+                if (myUserAuthBo.getAllMenuList().stream().anyMatch(item -> item.getPermissionUrl().equalsIgnoreCase(ca.getAttribute()))) {
+                    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+                    for (GrantedAuthority authority : authorities) {
+                        // 只要包含其中一个角色即可访问
+                        if (authority.getAuthority().equals(ca.getAttribute())) {
+                            return;
+                        }
+                    }
+                } else {
                     return;
                 }
             }

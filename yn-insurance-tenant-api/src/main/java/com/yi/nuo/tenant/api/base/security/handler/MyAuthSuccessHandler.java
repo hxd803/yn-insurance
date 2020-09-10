@@ -2,7 +2,7 @@ package com.yi.nuo.tenant.api.base.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yi.nuo.common.result.BaseApiResult;
-import com.yi.nuo.user.bo.UserBo;
+import com.yi.nuo.tenant.api.base.security.MyUserAuthBo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,8 +28,8 @@ public class MyAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         success.setMsg("登录成功");
         String s = mapper.writeValueAsString(success);
 
-        UserBo principal = (UserBo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        log.info("用户[{}]登陆成功！", principal.getId());
+        MyUserAuthBo principal = (MyUserAuthBo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("用户[{}]登陆成功！", principal.getUserBo().getId());
 
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();

@@ -4,6 +4,7 @@ import com.yi.nuo.common.util.Md5Util;
 import com.yi.nuo.tenant.api.base.security.exception.ValidCodeErrorException;
 import com.yi.nuo.user.bo.MenuBo;
 import com.yi.nuo.user.bo.UserBo;
+import com.yi.nuo.user.domain.IMenuDomain;
 import com.yi.nuo.user.domain.IUserDomain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,6 +33,9 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Resource
     private IUserDomain userDomain;
 
+    @Resource
+    private IMenuDomain menuDomain;
+
     @Override
     public Authentication authenticate(Authentication authentication) {
         log.info("now start custom authenticate process!");
@@ -54,15 +58,23 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("密码错误");
         }
 
-
+        List<MenuBo> userMenuList = menuDomain.findByUserId(userBo.getId());
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (MenuBo menuBo : userBo.getMenuBoList()) {
+        for (MenuBo menuBo : userMenuList) {
             if (!StringUtils.isEmpty(menuBo.getPermissionUrl())) {
                 GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(menuBo.getPermissionUrl());
                 grantedAuthorities.add(grantedAuthority);
             }
         }
-        return new UsernamePasswordAuthenticationToken(userBo, details.getPassword(), grantedAuthorities);
+
+        List<MenuBo> allMenu = menuDomain.findAll();
+
+        MyUserAuthBo myUserAuthBo = new MyUserAuthBo();
+        myUserAuthBo.setUserBo(userBo)
+                .setAllMenuList(allMenu)
+                .setUserMenuList(userMenuList);
+
+        return new UsernamePasswordAuthenticationToken(myUserAuthBo, details.getPassword(), grantedAuthorities);
 
     }
 
