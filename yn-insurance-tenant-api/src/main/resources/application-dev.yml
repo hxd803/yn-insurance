@@ -30,8 +30,12 @@ spring:
         login-username: admin
         login-password: admin
 
-
 # 配置slq打印日志
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+common:
+  #是否校验验证码
+  check-code: false

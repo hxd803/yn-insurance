@@ -11,6 +11,7 @@
         <module>yn-insurance-tenant-api</module>
         <module>yn-insurance-common</module>
         <module>yn-insurance-user</module>
+        <module>yn-insurance-tenant</module>
     </modules>
 
     <packaging>pom</packaging>

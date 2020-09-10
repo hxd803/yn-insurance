@@ -9,15 +9,16 @@ import com.yi.nuo.user.entity.User;
  * </p>
  *
  * @author 黄雪冬
- * @since 2020-09-08
+ * @since 2020-09-10
  */
 public interface IUserService extends IService<User> {
 
     /**
      * 根据用户名称获取
      *
-     * @param userName
+     * @param loginName
      * @return
      */
-    User getByUserName(String userName);
+    User getByLoginName(String loginName);
+
 }

@@ -1,5 +1,6 @@
 package com.yi.nuo.tenant.api.function.auth.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wf.captcha.SpecCaptcha;
 import com.yi.nuo.common.result.BaseApiResult;
 import com.yi.nuo.tenant.api.base.constant.SessionConstant;
@@ -30,6 +31,8 @@ public class AuthController {
     @Resource
     private IUserDomain userDomain;
 
+    @Resource
+    private ObjectMapper objectMapper;
 
     @PostMapping("/login")
     @Operation(summary = "登录")

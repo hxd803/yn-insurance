@@ -1,5 +1,7 @@
 package com.yi.nuo.user.bo;
 
+import com.yi.nuo.common.util.BeanUtil;
+import com.yi.nuo.user.enums.UserStateEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,17 +17,22 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class UserBo implements Serializable {
+public class UserBo implements Serializable, BeanUtil.ConversionCustomize {
 
     /**
-     * id
+     * 主键ID
      */
     private Integer id;
 
     /**
-     * 手机号码
+     * 租户ID
      */
-    private String mobile;
+    private Integer tenantId;
+
+    /**
+     * 登录名
+     */
+    private String loginName;
 
     /**
      * 姓名
@@ -33,9 +40,19 @@ public class UserBo implements Serializable {
     private String username;
 
     /**
+     * 手机号码
+     */
+    private String mobile;
+
+    /**
      * 密码
      */
     private String password;
+
+    /**
+     * 盐加密
+     */
+    private String salt;
 
     /**
      * 身份证号
@@ -43,39 +60,14 @@ public class UserBo implements Serializable {
     private String idCard;
 
     /**
-     * 职位
-     */
-    private String position;
-
-    /**
      * 部门
      */
     private String department;
 
     /**
-     * 所属组织
-     */
-    private Integer organizationId;
-
-    /**
-     * 所属组织名称
-     */
-    private String organizationName;
-
-    /**
      * 状态（0停用,1启用,2删除）
      */
-    private Integer state;
-
-    /**
-     * 账号类型（0：超级管理员，1：管理员，2：普通账号）
-     */
-    private Integer type;
-
-    /**
-     * 盐加密
-     */
-    private String salt;
+    private UserStateEnum state;
 
     /**
      * 备注
@@ -92,4 +84,11 @@ public class UserBo implements Serializable {
      */
     private LocalDateTime updateTime;
 
+    @Override
+    public void convertOthers(Object o) {
+        Object object = BeanUtil.getPropValue(o, "state");
+        if (object instanceof Integer) {
+            this.state = UserStateEnum.getByValue((Integer) object);
+        }
+    }
 }

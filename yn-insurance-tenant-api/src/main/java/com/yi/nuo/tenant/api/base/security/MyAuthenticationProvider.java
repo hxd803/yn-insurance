@@ -7,6 +7,7 @@ import com.yi.nuo.user.bo.UserBo;
 import com.yi.nuo.user.domain.IMenuDomain;
 import com.yi.nuo.user.domain.IUserDomain;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,19 +37,24 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     @Resource
     private IMenuDomain menuDomain;
 
+    @Value("${common.check-code}")
+    private Boolean isCheckCode;
+
     @Override
     public Authentication authenticate(Authentication authentication) {
         log.info("now start custom authenticate process!");
         MyWebAuthenticationDetails details = (MyWebAuthenticationDetails) authentication.getDetails();
 
-        if (StringUtils.isEmpty(details.getValidCode())) {
-            throw new ValidCodeErrorException("验证码不能为空");
-        }
-        if (!details.getValidCode().equalsIgnoreCase(details.getSessionCodeValue())) {
-            throw new ValidCodeErrorException("验证码错误");
+        if (isCheckCode) {
+            if (StringUtils.isEmpty(details.getValidCode())) {
+                throw new ValidCodeErrorException("验证码不能为空");
+            }
+            if (!details.getValidCode().equalsIgnoreCase(details.getSessionCodeValue())) {
+                throw new ValidCodeErrorException("验证码错误");
+            }
         }
 
-        UserBo userBo = userDomain.getByUserName(details.getUsername());
+        UserBo userBo = userDomain.getByLoginName(details.getUsername());
         if (userBo == null) {
             throw new UsernameNotFoundException("用户不存在");
         }

@@ -3,6 +3,7 @@ package com.yi.nuo.user.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yi.nuo.user.entity.User;
+import com.yi.nuo.user.enums.UserStateEnum;
 import com.yi.nuo.user.mapper.UserMapper;
 import com.yi.nuo.user.service.IUserService;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,17 @@ import java.util.List;
  * </p>
  *
  * @author 黄雪冬
- * @since 2020-09-08
+ * @since 2020-09-10
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public User getByUserName(String userName) {
+    public User getByLoginName(String loginName) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(User::getUsername, userName).or().eq(User::getMobile, userName);
+        wrapper.eq(User::getLoginName, loginName)
+                .ne(User::getState, UserStateEnum.DELETED.getValue());
+
         List<User> users = baseMapper.selectList(wrapper);
         if (CollectionUtils.isEmpty(users)) {
             return null;

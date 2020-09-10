@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author 黄雪冬
@@ -27,7 +27,7 @@ public class UserController extends BaseController {
 
 
     @GetMapping("/get/by/id")
-    public BaseApiResult<UserBo> getById(@NotNull(message = "请输入ID") Integer id) {
+    public BaseApiResult<UserBo> getById(@NotEmpty(message = "请输入ID") Integer id) {
         return new BaseApiResult<UserBo>().success(this.getCurrentUserBo());
     }
 }

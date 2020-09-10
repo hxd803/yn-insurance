@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>yn-insurance-user</artifactId>
+        <artifactId>yn-insurance-tenant</artifactId>
         <groupId>com.yi.nuo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yn-insurance-user-service</artifactId>
+    <artifactId>yn-insurance-tenant-service</artifactId>
 
     <dependencies>
-
         <dependency>
             <groupId>com.yi.nuo</groupId>
             <artifactId>yn-insurance-tenant-interface</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.yi.nuo</groupId>
-            <artifactId>yn-insurance-user-interface</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
@@ -51,6 +44,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
 
 </project>

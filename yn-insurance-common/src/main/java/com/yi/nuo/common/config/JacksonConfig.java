@@ -1,13 +1,19 @@
 package com.yi.nuo.common.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.yi.nuo.common.enums.ContentEnum;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -30,5 +36,17 @@ public class JacksonConfig {
         objectMapper.setDateFormat(dateFormat);
         return objectMapper;
     }
+
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer enumCustomizer() {
+        return jacksonObjectMapperBuilder -> jacksonObjectMapperBuilder.serializerByType(ContentEnum.class, new JsonSerializer<ContentEnum>() {
+
+            @Override
+            public void serialize(ContentEnum contentEnum, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+                jsonGenerator.writeNumber(contentEnum.getValue());
+            }
+        });
+    }
+
 
 }

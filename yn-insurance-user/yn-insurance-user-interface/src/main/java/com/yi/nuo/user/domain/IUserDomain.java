@@ -14,9 +14,9 @@ public interface IUserDomain {
     /**
      * 根据用户名获取
      *
-     * @param userName
+     * @param loginName
      * @return
      */
-    UserBo getByUserName(String userName);
+    UserBo getByLoginName(String loginName);
 
 }

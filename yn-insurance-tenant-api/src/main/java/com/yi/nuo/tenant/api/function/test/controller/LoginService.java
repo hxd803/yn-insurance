@@ -21,7 +21,7 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) {
-        UserBo userBo = userDomain.getByUserName(s);
+        UserBo userBo = userDomain.getByLoginName(s);
         if (userBo == null) {
             throw new UsernameNotFoundException("用户不存在");
         }

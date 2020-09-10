@@ -22,7 +22,7 @@ public class UserDomainImpl implements IUserDomain {
     private IUserService userService;
 
     @Override
-    public UserBo getByUserName(String userName) {
-        return BeanUtil.convert(userService.getByUserName(userName), UserBo.class);
+    public UserBo getByLoginName(String loginName) {
+        return BeanUtil.convert(userService.getByLoginName(loginName), UserBo.class);
     }
 }
