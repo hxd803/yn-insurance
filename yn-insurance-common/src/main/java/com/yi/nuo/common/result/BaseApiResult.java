@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 2019/8/21 14:16
  */
 @Data
-public class BaseApiResult<T extends Serializable> implements Serializable {
+public class BaseApiResult<T> implements Serializable {
 
     public static final Integer SUCCESS_CODE = 200;
     public static final Integer ERROR_CODE = 500;
