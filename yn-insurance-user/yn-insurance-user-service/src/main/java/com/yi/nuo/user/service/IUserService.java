@@ -13,5 +13,11 @@ import com.yi.nuo.user.entity.User;
  */
 public interface IUserService extends IService<User> {
 
+    /**
+     * 根据用户名称获取
+     *
+     * @param userName
+     * @return
+     */
     User getByUserName(String userName);
 }
