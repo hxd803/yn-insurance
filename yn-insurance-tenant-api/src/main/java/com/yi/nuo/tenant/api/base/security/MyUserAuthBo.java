@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * 自定义登录principal信息
+ *
  * @author 黄雪冬
  * @version 0.0.1
  * @date 2020/9/10 13:39
