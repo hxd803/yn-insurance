@@ -3,12 +3,14 @@ package com.yi.nuo.tenant.api.function.user.controller;
 import com.yi.nuo.common.result.BaseApiResult;
 import com.yi.nuo.tenant.api.base.BaseController;
 import com.yi.nuo.user.bo.UserBo;
+import com.yi.nuo.user.domain.IUserDomain;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotEmpty;
+import javax.annotation.Resource;
+import javax.validation.constraints.Min;
 
 /**
  * @author 黄雪冬
@@ -20,6 +22,9 @@ import javax.validation.constraints.NotEmpty;
 @Tag(name = "UserController", description = "用户信息管理")
 public class UserController extends BaseController {
 
+    @Resource
+    private IUserDomain userDomain;
+
     @GetMapping("/get/current/user")
     public BaseApiResult<UserBo> getCurrentUser() {
         return new BaseApiResult<UserBo>().success(this.getCurrentUserBo());
@@ -27,7 +32,7 @@ public class UserController extends BaseController {
 
 
     @GetMapping("/get/by/id")
-    public BaseApiResult<UserBo> getById(@NotEmpty(message = "请输入ID") Integer id) {
+    public BaseApiResult<UserBo> getById(@Min(1) Integer id) {
         return new BaseApiResult<UserBo>().success(this.getCurrentUserBo());
     }
 }
