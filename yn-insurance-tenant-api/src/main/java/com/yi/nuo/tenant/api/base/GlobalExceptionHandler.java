@@ -4,11 +4,12 @@ import com.yi.nuo.common.exception.BusinessException;
 import com.yi.nuo.common.result.BaseApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import javax.validation.ValidationException;
 
 /**
  * @author 黄雪冬
@@ -49,9 +50,9 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    @ExceptionHandler(value = ValidationException.class)
     @ResponseBody
-    public BaseApiResult<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) throws MethodArgumentNotValidException {
+    public BaseApiResult<String> handleMethodArgumentNotValidException(ValidationException exception) {
         return new BaseApiResult<String>().error(exception.getMessage());
     }
 }

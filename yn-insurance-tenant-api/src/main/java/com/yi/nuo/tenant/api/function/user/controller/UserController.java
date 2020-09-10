@@ -5,6 +5,7 @@ import com.yi.nuo.tenant.api.base.BaseController;
 import com.yi.nuo.user.bo.UserBo;
 import com.yi.nuo.user.domain.IUserDomain;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping("/api/user")
 @Tag(name = "UserController", description = "用户信息管理")
+@Validated
 public class UserController extends BaseController {
 
     @Resource
@@ -29,7 +31,6 @@ public class UserController extends BaseController {
     public BaseApiResult<UserBo> getCurrentUser() {
         return new BaseApiResult<UserBo>().success(this.getCurrentUserBo());
     }
-
 
     @GetMapping("/get/by/id")
     public BaseApiResult<UserBo> getById(@Min(1) Integer id) {
