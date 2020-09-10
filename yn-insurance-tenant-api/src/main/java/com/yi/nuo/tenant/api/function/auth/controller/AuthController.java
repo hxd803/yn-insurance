@@ -2,8 +2,8 @@ package com.yi.nuo.tenant.api.function.auth.controller;
 
 import com.wf.captcha.SpecCaptcha;
 import com.yi.nuo.common.result.BaseApiResult;
-import com.yi.nuo.system.domain.IUserDomain;
 import com.yi.nuo.tenant.api.base.constant.SessionConstant;
+import com.yi.nuo.user.domain.IUserDomain;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -57,7 +57,7 @@ public class AuthController {
         HttpSession session = request.getSession();
         session.setAttribute(SessionConstant.CAPTURE_SESSION_KEY, verCode);
         response.setContentType("image/png");
-        
+
         ServletOutputStream outputStream = response.getOutputStream();
         specCaptcha.out(outputStream);
         outputStream.flush();

@@ -1,10 +1,10 @@
 package com.yi.nuo.tenant.api.base.security;
 
 import com.yi.nuo.common.util.Md5Util;
-import com.yi.nuo.system.bo.MenuBo;
-import com.yi.nuo.system.bo.UserBo;
-import com.yi.nuo.system.domain.IUserDomain;
 import com.yi.nuo.tenant.api.base.security.exception.ValidCodeErrorException;
+import com.yi.nuo.user.bo.MenuBo;
+import com.yi.nuo.user.bo.UserBo;
+import com.yi.nuo.user.domain.IUserDomain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

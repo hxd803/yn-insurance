@@ -2,7 +2,7 @@ package com.yi.nuo.tenant.api.base.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yi.nuo.common.result.BaseApiResult;
-import com.yi.nuo.system.bo.UserBo;
+import com.yi.nuo.user.bo.UserBo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

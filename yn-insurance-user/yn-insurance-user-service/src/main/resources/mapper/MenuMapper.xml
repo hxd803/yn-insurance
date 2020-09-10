@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yi.nuo.system.mapper.MenuMapper">
+
+    <select id="findByUserId" resultType="com.yi.nuo.user.entity.Menu">
+        SELECT
+            a.*
+        FROM
+            menu a
+            INNER JOIN role_menu b ON a.id = b.menu_id
+            INNER JOIN role c ON b.role_id = c.id
+            INNER JOIN user_role d ON c.id = d.role_id
+            INNER JOIN `user` e ON d.user_id = e.id
+        WHERE
+            e.id =#{userId}
+    </select>
+
+</mapper>

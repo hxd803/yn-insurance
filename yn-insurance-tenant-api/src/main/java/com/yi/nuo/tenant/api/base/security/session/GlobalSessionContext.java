@@ -1,6 +1,6 @@
 package com.yi.nuo.tenant.api.base.security.session;
 
-import com.yi.nuo.system.bo.UserBo;
+import com.yi.nuo.user.bo.UserBo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.stereotype.Component;
